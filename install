@@ -39,6 +39,7 @@ my_echo 'stowing ...'
 stow bash
 stow git
 stow ruby
+stow python
 
 my_echo "changing to $inital_dir"
 cd "$inital_dir"
