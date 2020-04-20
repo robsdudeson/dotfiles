@@ -9,10 +9,10 @@
 [credential]
   helper = cache
 [user]
-	name = \"Robby Thompson\"
-	email = robsdudeson@gmail.com
+  name = \"Robby Thompson\"
+  email = robsdudeson@gmail.com
 [core]
-	excludesfile = /home/robsdudeson/.gitignore_global
+  excludesfile = /home/robsdudeson/.gitignore_global
 [diff]
   tool = meld
 [difftool]
