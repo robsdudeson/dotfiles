@@ -38,6 +38,7 @@ cd "$dotfiles_dir"
 my_echo 'stowing ...'
 stow bash
 stow git
+stow ruby
 
 my_echo "changing to $inital_dir"
 cd "$inital_dir"
