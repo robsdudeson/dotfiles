@@ -3,6 +3,8 @@
 set -e
 
 osname=$(uname)
+inital_dir="$(pwd)"
+dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 my_echo() {
   local fmt="$1"; shift
@@ -30,8 +32,14 @@ else
   exit 1
 fi
 
+my_echo "changing to $dotfiles_dir"
+cd "$dotfiles_dir"
+
 my_echo 'stowing ...'
 stow bash
+
+my_echo "changing to $inital_dir"
+cd "$inital_dir"
 
 my_echo '******************************************************************'
 my_echo '****   Dotfiles installed! Restart computer for full effect   ****'
