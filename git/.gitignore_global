@@ -1,0 +1,4 @@
+**/.vscode
+**/.elixir_ls
+**/node_modules
+**/package_lock.json
