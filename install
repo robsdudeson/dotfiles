@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -e
+
+osname=$(uname)
+
+my_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "[dotfiles] $fmt\n" "$@"
+}
+
+install_linux() {
+  my_echo "checking stow..."
+  command -v stow >/dev/null 
+  if [ $? != 0 ]; then
+    my_echo "installing stow"
+    sudo apt-get install -y stow
+  else
+    my_echo "using stow"
+  fi
+}
+
+if [ $osname == "Linux" ]; then
+  my_echo "Looks like I'm Running on Linux"
+  install_linux
+else 
+  my_echo "I'm not sure how to deal with this OS \"$osname\""
+  exit 1
+fi
+
+my_echo 'stowing ...'
+stow bash
+
+my_echo '******************************************************************'
+my_echo '****   Dotfiles installed! Restart computer for full effect   ****'
+my_echo '******************************************************************'
