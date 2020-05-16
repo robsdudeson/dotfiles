@@ -41,6 +41,7 @@ stow git
 stow ruby
 stow python
 stow zsh
+stow vscode
 
 my_echo "changing to $inital_dir"
 cd "$inital_dir"
