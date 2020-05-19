@@ -37,11 +37,12 @@ cd "$dotfiles_dir"
 
 my_echo 'stowing ...'
 stow bash
+stow zsh
 stow git
 stow ruby
 stow python
-stow zsh
 stow vscode
+stow cinnamon
 
 my_echo "changing to $inital_dir"
 cd "$inital_dir"
