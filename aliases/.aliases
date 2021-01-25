@@ -1,0 +1,26 @@
+alias ls='ls -halt --color=auto'
+
+# git
+alias gbr='git checkout master && git remote prune origin && git branch | grep -v master | xargs git branch -D'
+alias g='git'
+
+# docker
+alias de='docker exec -e COLUMNS="$(tput cols)" -e LINES="$(tput lines)" -ti'
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.Command}}\t{{.Image}}"'
+alias dka='docker kill $(docker ps -q)'
+
+# LDAP
+# https://confluence.covermymeds.com/display/~hread/Query+LDAP+from+Your+Machine
+alias lds="ldapsearch -o ldif-wrap=no -LLL -H ldaps://mipdc1.innova.local:3269 -D $USER@innova.local -b dc=innova,dc=local -Y GSSAPI -O maxssf=0 "
+
+# hiera
+new_hiera() {
+# how to use
+# new_hiera prodev_1_work
+  cd ~/code_work/control
+  git fetch upstream
+  git checkout production
+  git merge upstream/production
+  git push
+  git checkout -b deployme_$1
+}

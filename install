@@ -24,10 +24,34 @@ install_linux() {
   fi
 }
 
+install_dawrwin() {
+  my_echo "checking homebrew..."
+  if test ! $(which brew); then
+    my_echo "installing homebrew"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    my_echo "using homebrew"
+  fi
+
+  brew update
+  brew cleanup
+
+  my_echo "checking stow..."
+  if test ! $(which stow); then
+    my_echo "installing stow"
+    brew install stow
+  else
+    my_echo "using stow"
+  fi
+}
+
 if [ $osname == "Linux" ]; then
   my_echo "Looks like I'm Running on Linux"
   install_linux
-else 
+else if [ $osname == "Darwin" ]; then
+  my_echo "Looks like I'm Running on a Mac"
+  install_dawrwin
+else
   my_echo "I'm not sure how to deal with this OS \"$osname\""
   exit 1
 fi
@@ -37,6 +61,8 @@ cd "$dotfiles_dir"
 
 my_echo 'stowing ...'
 stow bash
+stow zsh
+stow aliases
 stow git
 stow ruby
 stow python
