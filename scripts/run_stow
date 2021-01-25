@@ -2,37 +2,27 @@
 
 set -e
 
+. ./scripts/common/my_echo
+
 # uses stow to manage config files
 # https://github.com/aspiers/stow
 
 osname=$(uname)
-inital_dir="$(pwd)"
-dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-my_echo() {
-  local fmt="$1"; shift
-
-  # shellcheck disable=SC2059
-  printf "[dotfiles] $fmt\n" "$@"
-}
-
-my_echo "changing to $dotfiles_dir"
-cd "$dotfiles_dir"
 
 my_echo 'stowing common apps...'
-stow aliases
-stow asdf
-stow bash
-stow git
-stow python
-stow ruby
-stow vscode
-stow zsh
+STOW_SOURCE="$(dirname "${BASH_SOURCE[0]}")/../"
+STOW_TAREGET=~
+stow="stow -d $STOW_SOURCE -t $STOW_TAREGET "
+$stow aliases
+$stow asdf
+$stow bash
+$stow git
+$stow python
+$stow ruby
+$stow vscode
+$stow zsh
 
 if [ $osname == "Linux" ]; then
   my_echo 'stowing linux apps...'
-  ./linux/run_stow
+  $stow cinnamon
 fi
-
-my_echo "changing to $inital_dir"
-cd "$inital_dir"
