@@ -15,9 +15,10 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
-# Use modern completion system
-autoload -Uz compinit
-compinit
+# ASDF 
+. $HOME/.asdf/asdf.sh
+# ASDF completions
+fpath=(${ASDF_DIR}/completions $fpath)
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -35,3 +36,16 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# https://git.innova-partners.com/platform/dev/blob/master/README.md
+export PLATFORM_DEV=$HOME/code_work/dev # change to match your local dev directory
+shovel() ( $PLATFORM_DEV/script/run shovel "$@"; )
+fpath=($PLATFORM_DEV/misc/completion/ $fpath)
+
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
+
+# initialise completions with ZSH's compinit
+autoload -Uz compinit
+compinit
