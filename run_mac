@@ -85,11 +85,13 @@ killall Dock
 # install applications
 PACKAGES=(
   asdf
+  autoconf
   coreutils
   git
   gpg
   mas
   openssl
+  wxmac
 )
 
 my_echo "Installing brew packages"
@@ -114,6 +116,32 @@ brew cleanup
 
 # apply common config
 ./scripts/run_stow
+
+# setup ASDF https://github.com/asdf-vm/asdf
+ASDF_PLUGINS=(
+  "elixir https://github.com/asdf-vm/asdf-elixir.git"
+  "erlang https://github.com/asdf-vm/asdf-erlang.git"
+  "nodejs https://github.com/asdf-vm/asdf-nodejs.git"
+  "python"
+  "ruby https://github.com/asdf-vm/asdf-ruby.git"
+)
+
+my_echo "Installing asdf plugins"
+for asdf_plugin in "${ASDF_PLUGINS[@]}"; do
+  asdf plugin-add $asdf_plugin
+done
+
+# need to update the keyring per nodejs asdf plugin
+# https://github.com/asdf-vm/asdf-nodejs#install
+echo "Setting keyring for asdf NodeJS"
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+my_echo "Installing asdf versions"
+for asdf_version in "$(cat ~/.tool-versions)"; do
+  my_echo "installing $asdf_version"
+  asdf install $asdf_version
+  asdf global $asdf_version
+done
 
 my_echo '************************************************************'
 my_echo '****   This Machine is setup! Restart for full effect   ****'
