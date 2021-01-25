@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+. ./scripts/common/my_echo
+
+# setup ASDF https://github.com/asdf-vm/asdf
+ASDF_PLUGINS=(
+  "elixir https://github.com/asdf-vm/asdf-elixir.git"
+  "erlang https://github.com/asdf-vm/asdf-erlang.git"
+  "nodejs https://github.com/asdf-vm/asdf-nodejs.git"
+  "python"
+  "ruby https://github.com/asdf-vm/asdf-ruby.git"
+)
+
+my_echo "Installing asdf plugins"
+for asdf_plugin in "${ASDF_PLUGINS[@]}"; do
+  asdf plugin-add $asdf_plugin
+done

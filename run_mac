@@ -84,66 +84,66 @@ killall SystemUIServer
 killall Finder
 killall Dock
 
+# remove bloatware
+my_echo "Remove default programs that are bundled with OSX"
+sudo rm -rf /Applications/iMovie.app
+sudo rm -rf /Applications/GarageBand.app
+
 # install applications
 PACKAGES=(
   asdf
   autoconf
   coreutils
+  curl
   git
   gpg
   mas
+  neovim
   openssl
   wxmac
 )
 
 my_echo "Installing brew packages"
-brew install ${PACKAGES[@]}
+#brew install ${PACKAGES[@]}
 
 my_echo "Installing brew casks"
 CASKS=(
+  bluejeans
   ccleaner
   dash
+  dbeaver-community
+  docker
+  evernote
   firefox
   font-fira-code
+  gh
   google-chrome
+  grammarly
   insomnia
   iterm2
+  notion
+  shiftit
   slack
+  spotify
+  virtualbox
   visual-studio-code
 )
 
-brew install --cask --no-quarantine ${CASKS[@]}
+# brew install --cask --no-quarantine ${CASKS[@]}
 
 brew cleanup
 
 # apply common config
 ./scripts/run_stow
 
-# setup ASDF https://github.com/asdf-vm/asdf
-ASDF_PLUGINS=(
-  "elixir https://github.com/asdf-vm/asdf-elixir.git"
-  "erlang https://github.com/asdf-vm/asdf-erlang.git"
-  "nodejs https://github.com/asdf-vm/asdf-nodejs.git"
-  "python"
-  "ruby https://github.com/asdf-vm/asdf-ruby.git"
-)
-
-my_echo "Installing asdf plugins"
-for asdf_plugin in "${ASDF_PLUGINS[@]}"; do
-  asdf plugin-add $asdf_plugin
-done
+./scripts/run_asdf_plugins
 
 # need to update the keyring per nodejs asdf plugin
 # https://github.com/asdf-vm/asdf-nodejs#install
-echo "Setting keyring for asdf NodeJS"
+my_echo "Setting keyring for asdf NodeJS"
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
-my_echo "Installing asdf versions"
-for asdf_version in "$(cat ~/.tool-versions)"; do
-  my_echo "installing $asdf_version"
-  asdf install $asdf_version
-  asdf global $asdf_version
-done
+./scripts/run_asdf_installs
 
 my_echo '************************************************************'
 my_echo '****   This Machine is setup! Restart for full effect   ****'

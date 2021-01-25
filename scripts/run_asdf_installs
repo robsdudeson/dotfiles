@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+. ./scripts/common/my_echo
+
+#TODO: this should read from.tool-versions
+
+ASDF_VERSIONS=(
+  #"elixir 1.11.1"
+  "erlang 23.1.1"
+  "nodejs 12.14.1"
+  "python 3.8.0"
+  "ruby 2.6.5"
+)
+
+my_echo "Installing asdf versions"
+for asdf_version in "${ASDF_VERSIONS[@]}"; do
+  my_echo "installing $asdf_version"
+  asdf install $asdf_version
+  asdf global $asdf_version
+done
