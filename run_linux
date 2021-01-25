@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+# import common functions
+. ./scripts/common/my_echo
+
+# snag some params
+osname=$(uname)
+
+# test for proper system type
+if [ $osname != "Linux" ]; then
+  my_echo "this should only be run on Linux"
+  exit 1
+fi
+
+# install basic system things
+my_echo "checking stow..."
+command -v stow >/dev/null 
+if [ $? != 0 ]; then
+  my_echo "installing stow"
+  sudo apt-get install -y stow
+else
+  my_echo "using stow"
+fi
+
+# install applications
+# TODO
+
+# apply common config
+./scripts/run_stow
+
+my_echo '************************************************************'
+my_echo '****   This Machine is setup! Restart for full effect   ****'
+my_echo '************************************************************'

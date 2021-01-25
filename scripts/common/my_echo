@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+my_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "[dotfiles] $fmt\n" "$@"
+}

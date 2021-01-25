@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+set -e
+
+# import common functions
+. ./scripts/common/my_echo
+
+osname=$(uname)
+
+# test for proper system type
+if [ $osname != "Darwin" ]; then
+  my_echo "this should only be run on a Mac"
+  exit 1
+fi
+
+# install basic system things
+my_echo "checking xcode-cli"
+command xcode-select -p 1>/dev/null
+if [ $? != 0 ]; then
+  my_echo "installing xcode-cli"
+  xcode-select --install
+fi
+
+my_echo "checking homebrew..."
+if test ! $(which brew); then
+  my_echo "installing homebrew"
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+else
+  my_echo "using homebrew"
+fi
+
+brew update
+brew cleanup
+
+my_echo "checking stow..."
+if test ! $(which stow); then
+  my_echo "installing stow"
+  brew install stow
+else
+  my_echo "using stow"
+fi
+
+# apply common OS config settings
+my_echo "Setting OSX defaults"
+# create dir and set default location for screenshots
+mkdir -p ~/Desktop/screenshots
+defaults write com.apple.screencapture location ~/Desktop/screenshots
+
+# show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# always show scrollbars
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+
+# show battery percentage
+defaults write com.apple.menuextra.battery ShowPercent YES
+
+# set clock to 24 hour with day of the week (ie 'Mon Jan 1 23:59:59')
+defaults write com.apple.menuextra.clock DateFormat -string 'EEE MMM d  H:mm:ss'
+
+# enable tap to click for this user and for the login screen
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Disable “natural” scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# Remove all the things from the Dock
+defaults delete com.apple.dock persistent-apps; killall Dock
+
+# Set save dialog always expanded
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+# Set minimize animation to scale
+defaults write com.apple.dock mineffect -string scale
+
+# kill things to take immediate effect
+killall SystemUIServer
+killall Finder
+killall Dock
+
+# install applications
+PACKAGES=(
+  asdf
+  coreutils
+  git
+  gpg
+  mas
+  openssl
+)
+
+my_echo "Installing brew packages"
+brew install ${PACKAGES[@]}
+
+my_echo "Installing brew casks"
+CASKS=(
+  ccleaner
+  dash
+  firefox
+  font-fira-code
+  google-chrome
+  insomnia
+  iterm2
+  slack
+  visual-studio-code
+)
+
+brew install --cask --no-quarantine ${CASKS[@]}
+
+brew cleanup
+
+# apply common config
+./scripts/run_stow
+
+my_echo '************************************************************'
+my_echo '****   This Machine is setup! Restart for full effect   ****'
+my_echo '************************************************************'
