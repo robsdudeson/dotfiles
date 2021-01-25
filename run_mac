@@ -19,6 +19,8 @@ command xcode-select -p 1>/dev/null
 if [ $? != 0 ]; then
   my_echo "installing xcode-cli"
   xcode-select --install
+else
+  my_echo "using xcode-cli"
 fi
 
 my_echo "checking homebrew..."
