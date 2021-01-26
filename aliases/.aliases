@@ -1,4 +1,7 @@
-alias ls='ls -halt --color=auto'
+#!/usr/bin/env bash
+
+# system
+alias ls='ls -halt'
 
 # git
 alias gbr='git checkout master && git remote prune origin && git branch | grep -v master | xargs git branch -D'
