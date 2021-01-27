@@ -94,6 +94,7 @@ PACKAGES=(
   asdf
   autoconf
   coreutils
+  ctags
   curl
   git
   gpg
