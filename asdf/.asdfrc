@@ -1,0 +1,2 @@
+# enables legacy version files like .ruby-version
+legacy_version_file = yes
