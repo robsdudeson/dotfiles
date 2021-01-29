@@ -105,7 +105,7 @@ PACKAGES=(
 )
 
 my_echo "Installing brew packages"
-#brew install ${PACKAGES[@]}
+brew install ${PACKAGES[@]}
 
 my_echo "Installing brew casks"
 CASKS=(
@@ -130,7 +130,7 @@ CASKS=(
   visual-studio-code
 )
 
-# brew install --cask --no-quarantine ${CASKS[@]}
+brew install --cask --no-quarantine ${CASKS[@]}
 
 brew cleanup
 
