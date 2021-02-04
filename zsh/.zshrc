@@ -22,6 +22,11 @@ if [ ! -d ~/zsh-syntax-highlighting ]; then
 fi
 source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# fix keys
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
+
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=1000
