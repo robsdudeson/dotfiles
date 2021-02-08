@@ -5,7 +5,7 @@ alias ls='ls -halt'
 alias scz='source ~/.zshrc'
 
 # git
-alias gbr='git checkout master && git remote prune origin && git branch | grep -v master | xargs git branch -D'
+alias gbr='git checkout master && git pull --all && git remote prune origin && git branch | grep -v master | xargs git branch -D'
 alias g='git'
 
 # docker
