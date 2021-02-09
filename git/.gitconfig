@@ -17,6 +17,7 @@
 	path = ~/code_work/.gitconfig
 [diff]
   tool = meld
+	colorMoved = zebra
 [difftool]
   prompt = false
 [difftool "meld"]
@@ -29,3 +30,7 @@
 [mergetool "meld"]
   trustExitCode = true
   cmd = meld --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
+[pull]
+	rebase = true
+[fetch]
+	prune = true
