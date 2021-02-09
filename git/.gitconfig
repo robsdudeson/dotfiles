@@ -16,20 +16,20 @@
 [includeIf "gitdir:~/code_work/"]
 	path = ~/code_work/.gitconfig
 [diff]
-  tool = meld
+  tool = vscode
 	colorMoved = zebra
 [difftool]
   prompt = false
-[difftool "meld"]
+[difftool "vscode"]
   trustExitCode = true
-  cmd = meld \"$LOCAL\" \"$REMOTE\"
+  cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
 [merge]
-  tool = meld
+  tool = vscode
 [mergetool]
   prompt = false
-[mergetool "meld"]
+[mergetool "vscode"]
   trustExitCode = true
-  cmd = meld --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
+  cmd = code --wait \"$MERGED\"
 [pull]
 	rebase = true
 [fetch]
