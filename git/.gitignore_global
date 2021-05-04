@@ -1,4 +1,5 @@
 **/.DS_Store
+*/.DS_Store
 **/.elixir_ls
 **/.vscode
 **/node_modules
