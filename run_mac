@@ -110,6 +110,7 @@ brew install ${PACKAGES[@]}
 my_echo "Installing brew casks"
 CASKS=(
   bluejeans
+  brave-browser
   ccleaner
   dash
   dbeaver-community
