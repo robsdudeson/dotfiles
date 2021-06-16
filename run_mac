@@ -97,6 +97,7 @@ PACKAGES=(
   ctags
   curl
   git
+  gimp
   gpg
   mas
   neovim
