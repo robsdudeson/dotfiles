@@ -1,5 +1,10 @@
-**/.DS_Store
-*/.DS_Store
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+
+# IDE/Tooling generated files #
+###############################
 **/.elixir_ls
 **/.vscode
 **/node_modules
