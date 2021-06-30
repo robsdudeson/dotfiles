@@ -33,7 +33,8 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 # ASDF 
-. $(brew --prefix asdf)/asdf.sh
+# . $(brew --prefix asdf)/asdf.sh
+. $HOME/.asdf/asdf.sh
 # ASDF completions
 fpath=(${ASDF_DIR}/completions $fpath)
 

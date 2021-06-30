@@ -24,11 +24,42 @@ else
   my_echo "using stow"
 fi
 
+# install basic system things
+my_echo "checking snapd..."
+command -v stow >/dev/null 
+if [ $? != 0 ]; then
+  my_echo "installing snapd"
+  sudo rm /etc/apt/preferences.d/nosnap.pref
+  sudo apt update
+  sudo apt install -y snapd
+else
+  my_echo "using snapd"
+fi
+
 # install applications
 # TODO
 
+snap_packages = (
+  "authy"
+  "dbeaver-ce"
+)
+
+my_echo "Installing snap packages"
+for snap_package in "${snap_packages[@]}"; do
+  snap install $snap_package
+done
+
 # apply common config
 ./scripts/run_stow
+
+./scripts/run_asdf_plugins
+
+# need to update the keyring per nodejs asdf plugin
+# https://github.com/asdf-vm/asdf-nodejs#install
+my_echo "Setting keyring for asdf NodeJS"
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+./scripts/run_asdf_installs
 
 my_echo '************************************************************'
 my_echo '****   This Machine is setup! Restart for full effect   ****'

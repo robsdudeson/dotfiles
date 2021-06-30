@@ -19,7 +19,7 @@ $stow bash
 $stow git
 $stow python
 $stow ruby
-$stow vscode
+# $stow vscode
 $stow zsh
 
 if [ $osname == "Linux" ]; then
