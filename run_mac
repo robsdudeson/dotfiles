@@ -97,6 +97,7 @@ PACKAGES=(
   ctags
   curl
   git
+  gh
   gimp
   gpg
   mas
@@ -119,7 +120,6 @@ CASKS=(
   evernote
   firefox
   font-fira-code
-  gh
   google-chrome
   grammarly
   insomnia
